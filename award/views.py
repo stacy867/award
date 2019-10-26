@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .forms import NewProjectForm,NewProfileForm
+from .forms import NewProjectForm,NewProfileForm,VoteForm
 from .models import Project,Profile 
 from django.db.models import Max,F
 
@@ -94,7 +94,7 @@ def new_profile(request):
 
 #Found this on github user="MaryannGitonga"
 @login_required(login_url='/accounts/login/')
-def rating(request):
+def rating(request,id):
     project=Project.objects.get(id=id)
     rating = round(((project.design + project.usability + project.content)/3),1)
     if request.method == 'POST':
@@ -117,7 +117,7 @@ def rating(request):
             return redirect('welcome')
     else:
         form = VoteForm()
-    return render(request,'index.html',{'form':form,'project':project,'rating':rating})    
+    return render(request,'vote.html',{'form':form,'project':project,'rating':rating})    
 
 
 
