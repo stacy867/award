@@ -21,14 +21,50 @@
               
                 <a  href="{{p.link}}"><strong>click to view the site</strong></a>
                      
-                <a href="{% url 'rating'  %}" data-toggle="modal" data-target="#{{p.id}}" class="btn">Vote</a>
+                <a href="{% url 'rating' id=p.id %}" data-toggle="modal" data-target="#{{p.id}}" >Vote</a>
+                <p><strong>design:</strong>{{p.design}}</p>
+                       <p><strong>usability:</strong>{{p.usability}}</p>
+                       <p><strong>content:</strong>{{p.content}}</p>
+                       <p>By <span>{{p.user.username}}</span> with <span>{{rating}}</span></p>
     
-               <!-- </div>
-              </div> -->
+               
               </div>
             </div>
             </div>
+            <div class="modal fade" id="{{p.id}}" tabindex="-1" role="dialog"  aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title"><strong>{{p.title}}</strong></h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                       <img src="{{p.image.url}}" class="img-responsive" alt="Image">
+                       <p><strong>design:</strong>{{p.design}}</p>
+                       <p><strong>usability:</strong>{{p.usability}}</p>
+                       <p><strong>content:</strong>{{p.content}}</p>
+                       
+
+                       <!-- <p class="text-center">By <span>{{p.user.username}}</span> with <span>{{rating}}</span></p> -->
+                      
+                    </div>
+                    <!-- Found this modal footer of copying a link on github -->
+                    <div class="modal-footer">
+                        <input class="form-control" type="text" value="{{ p.image.url }}" id="link">
+                        <!-- <a onclick="myFunction()"><button type="button"  class="btn btn-dark">Copy Link</button></a> -->
+          
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                        
+                      </div>
+            </div>
+          </div>
+          </div>
             {% endfor %}
+       
+
             </div>
           
           </div>
