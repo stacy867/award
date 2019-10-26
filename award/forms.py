@@ -13,7 +13,7 @@ class NewProfileForm(forms.ModelForm):
         exclude = ['user','user_project']
 
 
-class VoteForm(ModelForm):
+class VoteForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ('design','usability','content')
