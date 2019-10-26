@@ -6,7 +6,7 @@
 <div class="container">
         
         <div class="row masonry-container">
-            {%for p in project%}
+            {%for p in projects%}
             <div class="item col-md-4">
                 <div class="well">
               
@@ -21,7 +21,7 @@
               
                 <a  href="{{p.link}}"><strong>click to view the site</strong></a>
                      
-                   
+                <a href="{% url 'rating'  %}" data-toggle="modal" data-target="#{{p.id}}" class="btn">Vote</a>
     
                <!-- </div>
               </div> -->

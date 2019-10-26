@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .forms import NewProjectForm,NewProfileForm
 from .models import Project,Profile 
+from django.db.models import Max,F
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -26,9 +27,14 @@ class ProjectList(APIView):
 @login_required(login_url='/accounts/login/')
 def welcome(request):
 
-    project=Project.objects.all()
+    projects=Project.objects.all()
+    average=0
+    # average = (project.design + project.usability + project.content)/3
+    for p in projects:
+        average = (p.design + p.usability + p.content)/3
+        best_rating = round(average,2)
 
-    return render(request, 'index.html',{"project":project})
+    return render(request, 'index.html',{"projects":projects,'best_rating':best_rating})
 
 @login_required(login_url='/accounts/login/')
 def new_project(request):
@@ -85,6 +91,33 @@ def new_profile(request):
     else:
         form = NewProfileForm()
     return render(request, 'new_profile.html', {"form": form})
+
+#Found this on github user="MaryannGitonga"
+@login_required(login_url='/accounts/login/')
+def rating(request):
+    project=Project.objects.get(id=id)
+    rating = round(((project.design + project.usability + project.content)/3),1)
+    if request.method == 'POST':
+        form = VoteForm(request.POST)
+        if form.is_valid:
+            project.vote_submissions += 1
+            if project.design == 0:
+                project.design = int(request.POST['design'])
+            else:
+                project.design = (project.design + int(request.POST['design']))/2
+            if project.usability == 0:
+                project.usability = int(request.POST['usability'])
+            else:
+                project.usability = (project.design + int(request.POST['usability']))/2
+            if project.content == 0:
+                project.content = int(request.POST['content'])
+            else:
+                project.content = (project.design + int(request.POST['content']))/2
+            project.save()
+            return redirect('welcome')
+    else:
+        form = VoteForm()
+    return render(request,'index.html',{'form':form,'project':project,'rating':rating})    
 
 
 

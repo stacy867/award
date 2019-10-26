@@ -9,6 +9,7 @@ urlpatterns=[
     url(r'^new/profile$',views.new_profile, name='new-profile'),
     url(r'^profile$',views.profile, name='profile'),
     url(r'^search/', views.search_results, name='search_results'),
+    url(r'^project/$',views.rating,name='rating'),
     url(r'^api/profile/$', views.ProfileList.as_view(),name='profile-api'),
     url(r'^api/project/$', views.ProjectList.as_view(),name='project-api'),
 
