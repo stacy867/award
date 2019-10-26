@@ -39,6 +39,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 INSTALLED_APPS = [
     'bootstrap3',
+    'bootstrap4',
     'tinymce',
     'rest_framework',
     'award.apps.AwardConfig',
