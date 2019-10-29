@@ -13,10 +13,13 @@
   {% block styles %}
   {% bootstrap_css %}
   <link rel="stylesheet" href="{% static 'css/basenews.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
 {% endblock %}
 
 </head>
-<body>
+<body style="overflow-x:hidden">
+  
+    
   {% include "navbar.html" %}
   {% block content %} {%endblock%}
 

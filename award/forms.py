@@ -5,7 +5,7 @@ from django.forms import ModelForm
 class NewProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        exclude = ['user']
+        exclude = ['user','design','usability','content']
 
 class NewProfileForm(forms.ModelForm):
     class Meta:
